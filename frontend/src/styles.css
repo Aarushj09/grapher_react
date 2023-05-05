@@ -1,54 +1,67 @@
-.auth {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: blue;
+.app {
+  display: flex;
+  justify-content: center;
 }
 
-.auth .h1 {
-    font-size: 30px;
-      font-weight: 700;
-      color: teal;
-      margin-bottom: 15px;
+.container {
+  width: 1024px;
 }
 
-.auth .form {
-    display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      margin: 10px;
-      padding: 40px;
-      width: 300px;
-      height: 250px;
-      gap: 15px;
-      background-color: white;
+.container .link {
+  text-decoration: none;
+  color: inherit;
 }
 
-.auth .input {
-    border: none;
-    padding: 10px;
-    border-bottom: 1px solid black;
-
+.app .container .auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #b9e7e7;
 }
 
-.auth .button {
-    padding: 10px;
-      margin-top: 10px;
-      background-color: teal;
-      cursor: pointer;
-      color: white;
-      border: none;
+.app .container .auth h1 {
+  font-size: 30px;
+  font-weight: 700;
+  color: teal;
+  margin-bottom: 15px;
 }
 
-.auth .p {
-    font-size: 13px;
-      color: red;
-      text-align: center;
+.app .container .auth form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 10px;
+  padding: 40px;
+  width: 300px;
+  height: 250px;
+  gap: 15px;
+  background-color: white;
 }
 
-.auth .span {
-    text-align: center;
-      font-size: 13px;
+.app .container .auth input {
+  border: none;
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+
+.app .container .auth button {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: teal;
+  cursor: pointer;
+  color: white;
+  border: none;
+}
+
+.app .container .auth p {
+  font-size: 13px;
+  color: red;
+  text-align: center;
+}
+
+.app .container .auth span {
+  text-align: center;
+  font-size: 13px;
 }
