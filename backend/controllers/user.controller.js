@@ -11,7 +11,7 @@ exports.login = async (req, res) => {
         if (!email || !password) {
             return res.status(400).json({
                 success: false,
-                message: "Missing email and/or password"
+                message: "Missing email and/or password!"
             });
         }
 
@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
         if (!user) {
             return res.status(401).json({
                 success: false,
-                message: "User not found"
+                message: "User not found!"
             });
         }
 
@@ -34,7 +34,7 @@ exports.login = async (req, res) => {
         if (is_match === false) {
             return res.status(401).json({
                 success: false,
-                message: "Invalid password"
+                message: "Invalid password!"
             });
         }
 
@@ -54,7 +54,7 @@ exports.login = async (req, res) => {
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: "Internal server error"
+            message: "Internal server error!"
         });
     }
 }

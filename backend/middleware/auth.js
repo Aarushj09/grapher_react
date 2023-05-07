@@ -7,7 +7,7 @@ const auth = (req, res, next) => {
         if (!token) {
             return res.status(401).json({
                 success: false,
-                message: "Missing token"
+                message: "You are not logged in! Please log in."
             });
         }
 
@@ -16,7 +16,7 @@ const auth = (req, res, next) => {
         if (!payload) {
             return res.status(401).json({
                 success: false,
-                message: "Invalid token"
+                message: "Unable to identify user! Please log in again."
             });
         }
 
@@ -28,14 +28,14 @@ const auth = (req, res, next) => {
         if (err.name === "TokenExpiredError") {
             return res.status(401).json({
                 success: false,
-                message: "Token expired"
+                message: "Your session has expired! Please log in again."
             });
         }
 
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: "Internal server error"
+            message: "Internal server error!"
         });
     }
 }

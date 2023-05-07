@@ -8,7 +8,7 @@
     margin-top: 7.5vw;
 }
 
-.options_container button {
+.options_container .btn {
     padding: 1vw;
     border: none;
     border-radius: 0.5vw;
@@ -39,4 +39,15 @@
     padding: 1vw;
     border-radius: 0.5vw;
     background-color: #b9e7e7;
+}
+
+.button_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.uploaded_file_name {
+    width: 100%;
+    text-align: center;
 }
