@@ -6,7 +6,7 @@ const db = require("./models");
 const app = express();
 
 // Loading enviroment variables
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
 // Setup middleware
 app.use(cors());

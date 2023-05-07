@@ -35,7 +35,7 @@ const Datasets = () => {
 		// 	})
 		// 	.then((res) => {
 		// 		setDatasets(res.data.datasets);
-				setIsAuthenticated(true);
+		setIsAuthenticated(true);
 		// 	})
 		// 	.catch((err) => {
 		// 		Swal.fire({
@@ -51,26 +51,39 @@ const Datasets = () => {
 		// 	});
 	}, []);
 
+	const changeHandler = (event) => {
+		datasets.push({
+			name: event.target.files[0].name
+		})
+		
+		//re-render
+		setDatasets([...datasets])
+		console.log(event.target.files[0])
+	};
+
 	return (
-		<>
-			{isAuthenticated ? (
-				<div className='page_container'>
-					<h1>My Datasets</h1>
-					<div className='options_container'>
-						{/* <UploadFileModal /> */}
+		<div className='page_container'>
+			<h1>My Datasets</h1>
+			<div className='options_container'>
+				<button className='btn'>
+					Upload CSV
+					<input
+						// hidden
+						type="file"
+						accept=".csv"
+						onChange={changeHandler}
+						style={{ display: "block", margin: "10px auto" }}
+					/>
+				</button>
+			</div>
+			<div className='datasets_container'>
+				{datasets.map((dataset) => (
+					<div className='dataset'>
+						<h2>{dataset.name}</h2>
 					</div>
-					<div className='datasets_container'>
-						{datasets.map((dataset) => (
-							<div className='dataset'>
-								<h2>{dataset.name}</h2>
-							</div>
-						))}
-					</div>
-				</div>
-			) : (
-				<h1>Not logged in</h1>
-			)}
-		</>
+				))}
+			</div>
+		</div>
 	);
 };
 
