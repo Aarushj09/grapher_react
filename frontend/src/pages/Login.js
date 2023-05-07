@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Swal from 'sweetalert2'
 import { useState } from "react";
 import { Link } from 'react-router-dom'
 import "../styles/pages/Auth.css";
@@ -30,13 +31,30 @@ const Login = () => {
     };
 
     axios
-      .post("", user)
+      .post("http://localhost:5000/auth/login", user)
       .then((res) => {
-        console.log(res.data);
         resetInputs();
+        // Set token to cookie with same site
+        document.cookie = `token=${res.data.token}; path=/; SameSite=Strict`;
+
+        Swal.fire({
+          title: 'Success!',
+          text: "Login successful!",
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+
+        // Redirect to datasets page
+        window.location = "/datasets";
       })
       .catch((err) => {
         console.log(err);
+        Swal.fire({
+          title: 'Oops...',
+          text: err.response.data.message,
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
       });
   };
 
