@@ -42,13 +42,13 @@ const Login = () => {
           text: "Login successful!",
           icon: 'success',
           confirmButtonText: 'OK'
-        });
-
-        // Redirect to datasets page
-        window.location = "/datasets";
+        })
+          .then(() => {
+            // Redirect to datasets page
+            window.location = "/datasets";
+          });
       })
       .catch((err) => {
-        console.log(err);
         Swal.fire({
           title: 'Oops...',
           text: err.response.data.message,

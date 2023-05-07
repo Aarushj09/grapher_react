@@ -31,6 +31,18 @@ const Signup = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
+    // Check if email is valid
+    if (!email.includes("@")) {
+      Swal.fire({
+        title: 'Oops...',
+        text: "Please enter a valid email ID!",
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+
+      return;
+    }
+
     const user = {
       username: username,
       email: email,
@@ -43,16 +55,17 @@ const Signup = () => {
         resetInputs();
         // Set token to cookie
         document.cookie = `token=${res.data.token}; path=/; SameSite=Strict`;
-        
+
         Swal.fire({
           title: 'Success!',
           text: "Signup successful!",
           icon: 'success',
           confirmButtonText: 'OK'
-        });
-        
-        // Redirect to datasets page
-        window.location = "/datasets";
+        })
+          .then(() => {
+            // Redirect to datasets page
+            window.location = "/datasets";
+          });
       })
       .catch((err) => {
         Swal.fire({
