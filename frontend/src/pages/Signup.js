@@ -50,7 +50,7 @@ const Signup = () => {
     };
 
     axios
-      .post("http://localhost:5000/auth/signup", user)
+      .post("http://localhost:4000/auth/signup", user)
       .then((res) => {
         resetInputs();
         // Set token to cookie
