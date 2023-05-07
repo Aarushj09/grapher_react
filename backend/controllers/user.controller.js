@@ -61,6 +61,7 @@ exports.login = async (req, res) => {
 
 exports.signup = async (req, res) => {
     try {
+        const username = req.body.username;
         const email = req.body.email;
         let password = req.body.password;
 
@@ -89,6 +90,7 @@ exports.signup = async (req, res) => {
         password = await bcrypt.hash(password, salt);
 
         await User.create({
+            username: username,
             email: email,
             password: password
         });

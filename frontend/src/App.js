@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Datasets from "./pages/Datasets";
-import "./styles.css";
+import Graphs from "./pages/Graphs";
 
 function App() {
   return (
