@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const db = require("./models");
 
 // Create Express app
@@ -8,6 +9,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Setup middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -22,6 +24,7 @@ db.sequelize.sync()
 
 // Setup API endpoints
 require("./routes/auth.route")(app);
+require("./routes/dataset.route")(app);
 
 // Start the server
 app.listen(port, function () {
