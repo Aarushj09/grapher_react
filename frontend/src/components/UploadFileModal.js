@@ -9,7 +9,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import Papa from "papaparse";
 
-const UploadFileModal = ({ changeHandler }) => {
+const UploadFileModal = () => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -54,10 +54,7 @@ const UploadFileModal = ({ changeHandler }) => {
                 data["name"] = file.name.split(".")[0];
                 data["fields"] = results.meta.fields;
                 data["data"] = results.data;
-
-                // Call changeHandler function to update datasets state in Datasets.js
-                changeHandler(file.name.split(".")[0]);
-
+    
                 axios
                     .post("http://localhost:4000/datasets/create", data, {
                         headers: {

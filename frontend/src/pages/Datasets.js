@@ -43,24 +43,17 @@ const Datasets = () => {
 			});
 	}, []);
 
-	const changeHandler = (fileName) => {
-		datasets.push({
-			name: fileName
-		})
-
-		setDatasets([...datasets])
-	};
-
 	return (
 		<>
 			{isAuthenticated ? (
 				<div className='page_container'>
 					<h1>My Datasets</h1>
 					<div className='options_container'>
-						<UploadFileModal changeHandler={changeHandler} />
+						<UploadFileModal />
 					</div>
 					<div className='datasets_container'>
 						{datasets.map((dataset) => (
+							console.log(dataset),
 							<div className='dataset' key={dataset.dataset_name}>
 								<h2>{dataset.dataset_name.split("_")[1].split("_")[0]}.csv</h2>
 							</div>

@@ -66,4 +66,43 @@ exports.get_datasets = async (req, res) => {
     });
 };
 
-exports.get_dataset = async (req, res) => {};
+exports.get_dataset = async (req, res) => {
+    try {
+        // Fetch the dataset with the given id. This is a table starting with "dataset_"
+        // and ending with a timestamp. Find this table and then fetch all rows from it
+        const dataset = await db.user_dataset.findOne({
+            where: {
+                user_email: req.user.email,
+                dataset_name: req.params.dataset_id
+            }
+        });
+
+        if (!dataset) {
+            return res.status(404).json({
+                success: false,
+                message: "Dataset not found!"
+            });
+        }
+
+        // Search for a table with the name "dataset_id" and fetch all rows from it
+        const table = await db.sequelize.query(`SELECT * FROM :dataset_name`, {
+            replacements: {
+                dataset_name: `${req.params.dataset_id}s`
+            },
+            type: db.sequelize.QueryTypes.SELECT
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Dataset fetched successfully!",
+            fields: Object.keys(table[0]),
+            data: table
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error!"
+        });
+    }
+};
