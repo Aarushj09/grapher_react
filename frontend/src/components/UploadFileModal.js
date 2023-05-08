@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const UploadFileModal = () => {
+const UploadFileModal = ({ changeHandler }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -20,16 +20,20 @@ const UploadFileModal = () => {
     };
 
     const handleUpload = (e) => {
-        const file = e.target.files[0];
-        const nameElement = document.querySelector(".uploaded_file_name");
-        nameElement.innerHTML = file.name;
+        const fileName = e.target.files[0].name;
+        document.querySelector(".uploaded_file_name").innerHTML = fileName;
     };
 
     const handleSubmit = () => {
-        if (!document.querySelector(".uploaded_file_name").innerHTML) {
+        if (!document.querySelector("input[type=file]").files[0]
+            || document.querySelector("input[type=file]").files[0].name.split(".").length === 1
+            || document.querySelector("input[type=file]").files[0].name.split(".")[1] !== "csv"
+        ) {
+            setOpen(false);
+
             Swal.fire({
                 title: 'Oops...',
-                text: "Please choose a file to upload!",
+                text: "Please choose a CSV file to upload!",
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
@@ -42,37 +46,41 @@ const UploadFileModal = () => {
         const formData = new FormData();
         formData.append("file", file);
 
-        axios
-            .post("http://localhost:5000/datasets/create", formData, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "multipart/form-data",
-                },
-            })
-            .then((res) => {
-                setOpen(false);
-                
-                Swal.fire({
-                    title: 'Success!',
-                    text: res.data.message,
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                })
-                    .then(() => {
-                        // Redirect to datasets page
-                        window.location = "/datasets";
-                    });
-            })
-            .catch((err) => {
-                setOpen(false);
-                
-                Swal.fire({
-                    title: 'Oops...',
-                    text: err.response.data.message,
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            });
+        // Call changeHandler function to update datasets state in Datasets.js
+        changeHandler(file.name);
+
+        // axios
+        //     .post("http://localhost:5000/datasets/create", formData, {
+        //         headers: {
+        //             Authorization: `Bearer ${token}`,
+        //             "Content-Type": "multipart/form-data",
+        //         },
+        //     })
+        //     .then((res) => {
+        //         setOpen(false);
+
+        //         Swal.fire({
+        //             title: 'Success!',
+        //             text: res.data.message,
+        //             icon: 'success',
+        //             confirmButtonText: 'OK'
+        //         })
+        //             .then(() => {
+                        // // Redirect to datasets page
+                        // window.location = `${res.data.dataset.id}/graphs/add`;
+                        window.location = `/1/graphs/add`;
+            //         });
+            // })
+            // .catch((err) => {
+            //     setOpen(false);
+
+            //     Swal.fire({
+            //         title: 'Oops...',
+            //         text: err.response.data.message,
+            //         icon: 'error',
+            //         confirmButtonText: 'OK'
+            //     });
+            // });
     };
 
     return (

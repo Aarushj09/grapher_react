@@ -48,7 +48,10 @@ exports.add_dataset = async (req, res) => {
         //     .on('end', () => {
         //         return res.status(200).json({
         //             success: true,
-        //             message: "Dataset added successfully!"
+        //             message: "Dataset added successfully!",
+        //             dataset: {
+        //                 id: table_name,
+        //             }
         //         });
         //     });
     } catch (err) {

@@ -35,10 +35,11 @@
 }
 
 .dataset {
-    width: 29%;
+    width: 28%;
     padding: 1vw;
     border-radius: 0.5vw;
     background-color: #b9e7e7;
+    margin: 1vw;
 }
 
 .button_container {

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2'
 import { useState } from "react";
-// import UploadFileModal from "../components/UploadFileModal";
+import UploadFileModal from "../components/UploadFileModal";
 import "../styles/pages/Datasets.css"
 
 const Datasets = () => {
@@ -51,39 +51,39 @@ const Datasets = () => {
 		// 	});
 	}, []);
 
-	const changeHandler = (event) => {
+	const changeHandler = (fileName) => {
 		datasets.push({
-			name: event.target.files[0].name
+			name: fileName
 		})
-		
-		//re-render
+
 		setDatasets([...datasets])
-		console.log(event.target.files[0])
 	};
 
 	return (
-		<div className='page_container'>
-			<h1>My Datasets</h1>
-			<div className='options_container'>
-				<button className='btn'>
-					Upload CSV
-					<input
-						// hidden
-						type="file"
-						accept=".csv"
-						onChange={changeHandler}
-						style={{ display: "block", margin: "10px auto" }}
-					/>
-				</button>
-			</div>
-			<div className='datasets_container'>
-				{datasets.map((dataset) => (
-					<div className='dataset'>
-						<h2>{dataset.name}</h2>
+		<>
+			{isAuthenticated ? (
+				<div className='page_container'>
+					<h1>My Datasets</h1>
+					<div className='options_container'>
+						<UploadFileModal changeHandler={changeHandler} />
 					</div>
-				))}
-			</div>
-		</div>
+					<div className='datasets_container'>
+						{datasets.map((dataset) => (
+							<div className='dataset' key={dataset.name}>
+								<h2>{dataset.name}.csv</h2>
+							</div>
+						))}
+					</div>
+				</div>
+			) : (
+				<div className='page_container'>
+					<h1>You are not logged in!</h1>
+					<div className='datasets_container'>
+						<p>Please log in to view this page.</p>
+					</div>
+				</div>
+			)}
+		</>
 	);
 };
 
