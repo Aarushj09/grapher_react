@@ -7,6 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import axios from "axios";
 import Swal from "sweetalert2";
+import Papa from "papaparse";
 
 const UploadFileModal = ({ changeHandler }) => {
     const [open, setOpen] = React.useState(false);
@@ -43,44 +44,52 @@ const UploadFileModal = ({ changeHandler }) => {
 
         const token = document.cookie.split("=")[1];
         const file = document.querySelector("input[type=file]").files[0];
-        const formData = new FormData();
-        formData.append("file", file);
 
-        // Call changeHandler function to update datasets state in Datasets.js
-        changeHandler(file.name);
+        const data = {};
 
-        // axios
-        //     .post("http://localhost:5000/datasets/create", formData, {
-        //         headers: {
-        //             Authorization: `Bearer ${token}`,
-        //             "Content-Type": "multipart/form-data",
-        //         },
-        //     })
-        //     .then((res) => {
-        //         setOpen(false);
+        // Parse the CSV and extract the column names and values
+        Papa.parse(file, {
+            header: true,
+            complete: function (results) {
+                data["name"] = file.name.split(".")[0];
+                data["fields"] = results.meta.fields;
+                data["data"] = results.data;
 
-        //         Swal.fire({
-        //             title: 'Success!',
-        //             text: res.data.message,
-        //             icon: 'success',
-        //             confirmButtonText: 'OK'
-        //         })
-        //             .then(() => {
-                        // // Redirect to datasets page
-                        // window.location = `${res.data.dataset.id}/graphs/add`;
-                        window.location = `/1/graphs/add`;
-            //         });
-            // })
-            // .catch((err) => {
-            //     setOpen(false);
+                // Call changeHandler function to update datasets state in Datasets.js
+                changeHandler(file.name.split(".")[0]);
 
-            //     Swal.fire({
-            //         title: 'Oops...',
-            //         text: err.response.data.message,
-            //         icon: 'error',
-            //         confirmButtonText: 'OK'
-            //     });
-            // });
+                axios
+                    .post("http://localhost:4000/datasets/create", data, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    })
+                    .then((res) => {
+                        setOpen(false);
+
+                        Swal.fire({
+                            title: 'Success!',
+                            text: res.data.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        })
+                            .then(() => {
+                                // Redirect to datasets page
+                                window.location = `${res.data.dataset.id}/graphs/add`;
+                            });
+                    })
+                    .catch((err) => {
+                        setOpen(false);
+
+                        Swal.fire({
+                            title: 'Oops...',
+                            text: err.response.data.message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    });
+            }
+        });
     };
 
     return (

@@ -7,48 +7,40 @@ import "../styles/pages/Datasets.css"
 
 const Datasets = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
-	const [datasets, setDatasets] = useState([
-		{
-			name: 'Dataset 1'
-		},
-		{
-			name: 'Dataset 2'
-		},
-		{
-			name: 'Dataset 3'
-		}
-	]);
+	const [datasets, setDatasets] = useState([]);
 
 	useEffect(() => {
 		// Check if user is logged in
-		const token = document.cookie.split("=")[1];
+		let token = document.cookie.split("=")[1];
+		token = token.split(";")[0];
 		if (!token) {
 			window.location = "/login";
 		}
 
 		// Get datasets
-		// axios
-		// 	.get("http://localhost:5000/datasets", {
-		// 		headers: {
-		// 			Authorization: `Bearer ${token}`,
-		// 		},
-		// 	})
-		// 	.then((res) => {
-		// 		setDatasets(res.data.datasets);
-		setIsAuthenticated(true);
-		// 	})
-		// 	.catch((err) => {
-		// 		Swal.fire({
-		// 			title: 'Oops...',
-		// 			text: err.response.data.message,
-		// 			icon: 'error',
-		// 			confirmButtonText: 'OK'
-		// 		})
-		// 			.then(() => {
-		// 				// Redirect to login page
-		// 				window.location = "/login";
-		// 			});
-		// 	});
+		axios
+			.get("http://localhost:4000/datasets", {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((res) => {
+				setDatasets(res.data.datasets);
+				setIsAuthenticated(true);
+			})
+			.catch((err) => {
+				console.log(err);
+				Swal.fire({
+					title: 'Oops...',
+					text: err.response.data.message,
+					icon: 'error',
+					confirmButtonText: 'OK'
+				})
+					.then(() => {
+						// Redirect to login page
+						window.location = "/login";
+					});
+			});
 	}, []);
 
 	const changeHandler = (fileName) => {
@@ -69,8 +61,8 @@ const Datasets = () => {
 					</div>
 					<div className='datasets_container'>
 						{datasets.map((dataset) => (
-							<div className='dataset' key={dataset.name}>
-								<h2>{dataset.name}.csv</h2>
+							<div className='dataset' key={dataset.dataset_name}>
+								<h2>{dataset.dataset_name.split("_")[1].split("_")[0]}.csv</h2>
 							</div>
 						))}
 					</div>
