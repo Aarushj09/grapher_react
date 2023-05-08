@@ -20,7 +20,7 @@ const auth = (req, res, next) => {
             });
         }
 
-        req.user_email = payload;
+        req.user = payload;
         next();
     } catch (err) {
         // If the token is expired, we opt to return a 401 status code instead of a 500

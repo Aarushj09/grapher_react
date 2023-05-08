@@ -1,59 +1,46 @@
-const csv = require('csv-parser');
-const fs = require('fs');
 const db = require("../models");
 
 exports.add_dataset = async (req, res) => {
     try {
-        // The dataset would be in the form of an uploaded CSV file
-        const file = req.file;
+        const { name, fields, data } = req.body;
 
-        if (!req.file) {
+        if (!fields || !data) {
             return res.status(400).json({
                 success: false,
-                message: "No file uploaded!"
+                message: "Missing fields and/or data!"
             });
         }
 
-        if (file.mimetype !== "text/csv") {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid file type!"
+        // Create a table with the given fields as columns
+        const table_name = `dataset_${name}_${Date.now()}`;
+        const columns = {};
+
+        fields.forEach(field => {
+            columns[field] = {
+                type: db.Sequelize.STRING
+            };
+        });
+
+        const Dataset = db.sequelize.define(table_name, columns);
+
+        db.sequelize.sync().then(() => {
+            data.forEach(row => {
+                Dataset.create(row);
             });
-        }
 
-        // // If filename already exists as a table, return an error
-        // const dataset = await db.sequelize.query(`SELECT name FROM sqlite_master WHERE type='table' AND name='${file.filename.split(".")[0]}'`);
-        // if (dataset[0].length > 0) {
-        //     return res.status(400).json({
-        //         success: false,
-        //         message: "Dataset with that name already exists!"
-        //     });
-        // }
+            db.user_dataset.create({
+                user_email: req.user.email,
+                dataset_name: table_name
+            });
 
-        // // The dataset would be stored in the database as a table
-        // // The table name would be the same as the filename
-        // const table_name = file.filename.split(".")[0];
-        // const table = db.sequelize.define(table_name, {}, { timestamps: false });
-
-        // // The table would have a column for each column in the CSV file
-        // fs.createReadStream(file.path)
-        //     .pipe(csv())
-        //     .on('data', async (row) => {
-        //         for (const [column_name, value] of Object.entries(row)) {
-        //             await table.addColumn(column_name, { type: db.Sequelize.STRING });
-        //         }
-
-        //         await table.create(row);
-        //     })
-        //     .on('end', () => {
-        //         return res.status(200).json({
-        //             success: true,
-        //             message: "Dataset added successfully!",
-        //             dataset: {
-        //                 id: table_name,
-        //             }
-        //         });
-        //     });
+            return res.status(200).json({
+                success: true,
+                message: "Dataset created successfully!",
+                dataset: {
+                    id: table_name
+                }
+            });
+        });
     } catch (err) {
         console.log(err);
         return res.status(500).json({
@@ -63,6 +50,20 @@ exports.add_dataset = async (req, res) => {
     }
 };
 
-exports.get_datasets = async (req, res) => { };
+exports.get_datasets = async (req, res) => {
+    // Fetch all datasets from the database. These are tables starting with "dataset_"
+    // and ending with a timestamp
+    let datasets = await db.user_dataset.findAll({
+        where: {
+            user_email: req.user.email
+        }
+    });
 
-exports.get_dataset = async (req, res) => { };
+    return res.status(200).json({
+        success: true,
+        message: "Datasets fetched successfully!",
+        datasets: datasets
+    });
+};
+
+exports.get_dataset = async (req, res) => {};
