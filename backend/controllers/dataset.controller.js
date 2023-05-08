@@ -92,10 +92,19 @@ exports.get_dataset = async (req, res) => {
             type: db.sequelize.QueryTypes.SELECT
         });
 
+        // Remove keys "id", "createdAt" and "updatedAt" from the rows
+        table.forEach(row => {
+            delete row.id;
+            delete row.createdAt;
+            delete row.updatedAt;
+        });
+
+        const fields = Object.keys(table[0]);
+
         return res.status(200).json({
             success: true,
             message: "Dataset fetched successfully!",
-            fields: Object.keys(table[0]),
+            fields: fields,
             data: table
         });
     } catch (err) {
