@@ -56,7 +56,7 @@ const UploadFileModal = () => {
                 data["data"] = results.data;
     
                 axios
-                    .post("https://main--dulcet-taffy-eeeffb.netlify.app/datasets/create", data, {
+                    .post("http://localhost:4000/datasets/create", data, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
