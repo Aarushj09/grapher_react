@@ -49,7 +49,7 @@ const Signup = () => {
     };
 
     axios
-      .post("https://dulcet-taffy-eeeffb.netlify.app/auth/signup", user)
+      .post("https://main--dulcet-taffy-eeeffb.netlify.app/auth/signup", user)
       .then((res) => {
         resetInputs();
         // Set auth token to cookie on the client side

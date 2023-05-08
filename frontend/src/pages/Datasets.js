@@ -36,7 +36,7 @@ const Datasets = () => {
 
 		// Get datasets of current user
 		axios
-			.get("https://dulcet-taffy-eeeffb.netlify.app/datasets", {
+			.get("https://main--dulcet-taffy-eeeffb.netlify.app/datasets", {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

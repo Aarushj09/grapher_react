@@ -25,7 +25,7 @@ export default function ButtonAppBar() {
             return;
         }
 
-        axios.get("https://dulcet-taffy-eeeffb.netlify.app/auth/user", {
+        axios.get("https://main--dulcet-taffy-eeeffb.netlify.app/auth/user", {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

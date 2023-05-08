@@ -31,7 +31,7 @@ const Login = () => {
     };
 
     axios
-      .post("https://dulcet-taffy-eeeffb.netlify.app/auth/login", user)
+      .post("https://main--dulcet-taffy-eeeffb.netlify.app/auth/login", user)
       .then((res) => {
         resetInputs();
         // Set token to cookie with same site
