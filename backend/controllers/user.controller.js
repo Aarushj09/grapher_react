@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const User = db.user;
 
+// return user details
 exports.get_user = async (req, res) => {
     try {
         const user = await User.findOne({
@@ -33,6 +34,7 @@ exports.get_user = async (req, res) => {
     }
 }
 
+// login user
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -50,6 +52,7 @@ exports.login = async (req, res) => {
             }
         });
 
+        // If user does not exist, return 401 status code
         if (!user) {
             return res.status(401).json({
                 success: false,
@@ -67,7 +70,7 @@ exports.login = async (req, res) => {
             });
         }
 
-        // Create a JWT token
+        // Create a JWT token which expires after 1 day
         const token = jwt.sign(
             { email },
             process.env.JWT_SECRET || "secret",
@@ -88,6 +91,7 @@ exports.login = async (req, res) => {
     }
 }
 
+// signup user
 exports.signup = async (req, res) => {
     try {
         const username = req.body.username;
@@ -107,6 +111,7 @@ exports.signup = async (req, res) => {
             }
         });
 
+        // If user exists, return an error
         if (user) {
             return res.status(401).json({
                 success: false,

@@ -13,6 +13,7 @@ const Graphs = () => {
 	const [values, setValues] = useState([]);
 	const [graphs, setGraphs] = useState([]);
 
+
 	const validateAuthToken = () => {
 		let token = document.cookie;
 		if (!token)
@@ -33,6 +34,7 @@ const Graphs = () => {
 		return token;
 	};
 
+
 	const dataset_id = useParams().dataset_id;
 
 	useEffect(() => {
@@ -45,9 +47,9 @@ const Graphs = () => {
 			},
 		})
 			.then((res) => {
+				// Convert all numeric columns to numbers
 				Object.keys(res.data.data[0]).map((key) => {
 					if (!isNaN(res.data.data[0][key])) {
-						// Convert all values in res.data.data[i][key] to numbers
 						res.data.data.map((value) => {
 							value[key] = Number(value[key]);
 						});
@@ -82,6 +84,7 @@ const Graphs = () => {
 			{values.length > 0 ? (
 				<div className="graphs_container">
 					{graphs.map((graph, index) => {
+						// Create chart config and layout object for Plotly
 						const chartConfig = {
 							type: graph.graph_type,
 						}

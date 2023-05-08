@@ -26,6 +26,7 @@ exports.add_graph = async (req, res) => {
     }
 
     try {
+        // Create a graph in the database
         await db.graph.create({
             user_email: req.user.email,
             dataset_name: dataset_name,
@@ -47,9 +48,9 @@ exports.add_graph = async (req, res) => {
     }
 };
 
+// Fetch all graphs from the database for the dataset
 exports.get_graphs = async (req, res) => {
     try {
-        // Fetch all graphs from the database for the dataset
         const graphs = await db.graph.findAll({
             where: {
                 user_email: req.user.email,

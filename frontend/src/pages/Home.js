@@ -13,14 +13,24 @@ const Home = () => {
 		 minHeight="100vh"
 		 >
 			<div>
-				<h1>Exploratory Data Analysis</h1>
+				<h1 style={{
+					textAlign: "center",
+					fontSize: "6rem",
+				}}>Exploratory Data Analysis</h1>
 				<Box sx={{ '& button': { m: 1 } }}>
-				<Button variant="contained" size="large">
-				<Link to="/login">Login</Link>
-				</Button>
-				<Button variant="contained" size="large">
-				<Link to="/signup">Register</Link>
-				</Button>
+					<div style={{
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "space-evenly",
+						alignItems: "center"
+					}}>
+					<Button variant="contained" size="large" href="/login">
+					Login
+					</Button>
+					<Button variant="contained" size="large" href="/signup">
+					Signup
+					</Button>
+					</div>
 				</Box>
 			</div>
 		</Box>

@@ -56,9 +56,9 @@ const AddGraphs = () => {
 			},
 		})
 			.then((res) => {
+				// Convert all numeric columns to numbers
 				Object.keys(res.data.data[0]).map((key) => {
 					if (!isNaN(res.data.data[0][key])) {
-						// Convert all values in res.data.data[i][key] to numbers
 						res.data.data.map((value) => {
 							value[key] = Number(value[key]);
 						});
@@ -94,8 +94,7 @@ const AddGraphs = () => {
 			return;
 		}
 
-		// TODO: Add validation checks
-
+		// store the values of the x_axis, y_axis and the type of graph in the database
 		axios.post("http://localhost:4000/graphs/create", {
 			dataset_name: dataset_id,
 			x_axis: xAxis,
@@ -144,7 +143,7 @@ const AddGraphs = () => {
 							</TableHead>
 							<TableBody>
 								{values.map((value, index) => {
-									// Do this only until index = 4
+									// Display only 5 rows
 									if (index > 4) {
 										return;
 									}

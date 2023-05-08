@@ -39,7 +39,6 @@ const Signup = () => {
         icon: 'error',
         confirmButtonText: 'OK'
       });
-
       return;
     }
 
@@ -53,7 +52,7 @@ const Signup = () => {
       .post("http://localhost:4000/auth/signup", user)
       .then((res) => {
         resetInputs();
-        // Set token to cookie
+        // Set auth token to cookie on the client side
         document.cookie = `token=${res.data.token}; path=/; SameSite=Strict`;
 
         Swal.fire({
@@ -87,7 +86,6 @@ const Signup = () => {
         <input required type="email" placeholder="Email ID" value={email} onChange={onChangeEmail} />
         <input required type="password" placeholder="Password" value={password} onChange={onChangePassword} />
         <button onClick={onSubmit}>Register</button>
-        {/* <p> Error! </p> */}
         <span>
           Already have an account? <Link to="/login">Login</Link>
         </span>

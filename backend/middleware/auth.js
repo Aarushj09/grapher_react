@@ -11,7 +11,7 @@ const auth = (req, res, next) => {
             });
         }
 
-        // Verify the token. This returns the payload if the signature is valid
+        // Verify the token. This returns the payload(email) if the signature is valid
         const payload = jwt.verify(token, process.env.JWT_SECRET || "secret");
         if (!payload) {
             return res.status(401).json({

@@ -9,6 +9,7 @@ const Datasets = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [datasets, setDatasets] = useState([]);
 
+	// Validate auth token, if invalid redirect to login page
 	const validateAuthToken = () => {
 		let token = document.cookie;
 		if (!token)
@@ -30,10 +31,10 @@ const Datasets = () => {
 	};
 
 	useEffect(() => {
-		// Check if user is logged in
+		// Check if there is some user logged in, if not redirect to login page
 		const token = validateAuthToken();
 
-		// Get datasets
+		// Get datasets of current user
 		axios
 			.get("http://localhost:4000/datasets", {
 				headers: {
@@ -59,6 +60,7 @@ const Datasets = () => {
 			});
 	}, []);
 
+	// redirect to graphs already plotted for this dataset
 	const handleDatasetClick = (dataset_id) => {
 		window.location = `/${dataset_id}/graphs`;
 	};

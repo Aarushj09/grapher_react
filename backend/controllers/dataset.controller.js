@@ -1,5 +1,6 @@
 const db = require("../models");
 
+// Create a dataset in the database
 exports.add_dataset = async (req, res) => {
     try {
         const { name, fields, data } = req.body;
@@ -12,6 +13,7 @@ exports.add_dataset = async (req, res) => {
         }
 
         // Create a table with the given fields as columns
+        // name of the dataset is dataset_<name>_<timestamp>
         const table_name = `dataset_${name}_${Date.now()}`;
         const columns = {};
 
@@ -50,9 +52,8 @@ exports.add_dataset = async (req, res) => {
     }
 };
 
+// Fetch all datasets from the database based on user email
 exports.get_datasets = async (req, res) => {
-    // Fetch all datasets from the database. These are tables starting with "dataset_"
-    // and ending with a timestamp
     let datasets = await db.user_dataset.findAll({
         where: {
             user_email: req.user.email
@@ -66,10 +67,11 @@ exports.get_datasets = async (req, res) => {
     });
 };
 
+
+// Fetch the dataset with the given id. This is a table starting with "dataset_"
+// and ending with a timestamp. Find this table and then fetch all rows from it
 exports.get_dataset = async (req, res) => {
     try {
-        // Fetch the dataset with the given id. This is a table starting with "dataset_"
-        // and ending with a timestamp. Find this table and then fetch all rows from it
         const dataset = await db.user_dataset.findOne({
             where: {
                 user_email: req.user.email,
