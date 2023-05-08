@@ -27,11 +27,11 @@ require("./routes/auth.route")(app);
 require("./routes/dataset.route")(app);
 require("./routes/graph.route")(app);
 
+app.get("/", (req, res) => {
+    res.send("Hello World!");
+});
+
 // Start the server
 app.listen(port, function () {
     console.log(`Server is running on port ${port}!`);
 });
-
-// TODO: Remove console.log() statements
-// TODO: Replace sqlite3
-// TODO: Add caching

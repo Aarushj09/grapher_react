@@ -50,7 +50,7 @@ const AddGraphs = () => {
 		// Check if user is logged in
 		const token = validateAuthToken();
 
-		axios.get(`http://localhost:4000/datasets/${dataset_id}`, {
+		axios.get(`https://dulcet-taffy-eeeffb.netlify.app/datasets/${dataset_id}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
@@ -95,7 +95,7 @@ const AddGraphs = () => {
 		}
 
 		// store the values of the x_axis, y_axis and the type of graph in the database
-		axios.post("http://localhost:4000/graphs/create", {
+		axios.post("https://dulcet-taffy-eeeffb.netlify.app/graphs/create", {
 			dataset_name: dataset_id,
 			x_axis: xAxis,
 			y_axis: yAxis,
