@@ -25,6 +25,7 @@ db.sequelize.sync()
 // Setup API endpoints
 require("./routes/auth.route")(app);
 require("./routes/dataset.route")(app);
+require("./routes/graph.route")(app);
 
 // Start the server
 app.listen(port, function () {
@@ -33,3 +34,4 @@ app.listen(port, function () {
 
 // TODO: Remove console.log() statements
 // TODO: Replace sqlite3
+// TODO: Add caching

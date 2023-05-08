@@ -43,6 +43,10 @@ const Datasets = () => {
 			});
 	}, []);
 
+	const handleDatasetClick = (dataset_id) => {
+		window.location = `/${dataset_id}/graphs`;
+	};
+
 	return (
 		<>
 			{isAuthenticated ? (
@@ -53,8 +57,7 @@ const Datasets = () => {
 					</div>
 					<div className='datasets_container'>
 						{datasets.map((dataset) => (
-							console.log(dataset),
-							<div className='dataset' key={dataset.dataset_name}>
+							<div className='dataset' key={dataset.dataset_name} onClick={() => { handleDatasetClick(dataset.dataset_name) }}>
 								<h2>{dataset.dataset_name.split("_")[1].split("_")[0]}.csv</h2>
 							</div>
 						))}
