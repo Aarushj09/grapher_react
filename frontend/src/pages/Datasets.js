@@ -9,13 +9,29 @@ const Datasets = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [datasets, setDatasets] = useState([]);
 
+	const validateAuthToken = () => {
+		let token = document.cookie;
+		if (!token)
+			window.location = "/login";
+
+		token = token.split("=")[1];
+		if (!token)
+			window.location = "/login";
+		
+		token = token.split(";");
+		if (!token)
+			window.location = "/login";
+
+		token = token[0];
+		if (!token)
+			window.location = "/login";
+
+		return token;
+	};
+
 	useEffect(() => {
 		// Check if user is logged in
-		let token = document.cookie.split("=")[1];
-		token = token.split(";")[0];
-		if (!token) {
-			window.location = "/login";
-		}
+		const token = validateAuthToken();
 
 		// Get datasets
 		axios
