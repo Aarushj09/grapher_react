@@ -56,7 +56,7 @@ const UploadFileModal = () => {
                 data["data"] = results.data;
     
                 axios
-                    .post("http://localhost:4000/datasets/create", data, {
+                    .post("https://grapher-dfs.onrender.com/datasets/create", data, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },

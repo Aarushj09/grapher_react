@@ -26,7 +26,7 @@ describe('Signup', () => {
     fireEvent.click(registerButton);
 
     await waitFor(() => {
-      expect(axios.post).toHaveBeenCalledWith('http://localhost:4000/auth/signup', {
+      expect(axios.post).toHaveBeenCalledWith('https://grapher-dfs.onrender.com/auth/signup', {
         username: 'testuser',
         email: 'test@gmail.com',
         password: 'testpassword',

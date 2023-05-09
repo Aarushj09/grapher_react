@@ -20,7 +20,7 @@ describe('Datasets', () => {
     render(<Datasets />);
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('http://localhost:4000/datasets', {
+      expect(axios.get).toHaveBeenCalledWith('https://grapher-dfs.onrender.com/datasets', {
         headers: {
           Authorization: 'Bearer fakeToken',
         },
@@ -39,7 +39,7 @@ describe('Datasets', () => {
     render(<Datasets />);
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('http://localhost:4000/datasets', {
+      expect(axios.get).toHaveBeenCalledWith('https://grapher-dfs.onrender.com/datasets', {
         headers: {
           Authorization: 'Bearer fakeToken',
         },

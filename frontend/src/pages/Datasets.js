@@ -36,7 +36,7 @@ const Datasets = () => {
 
 		// Get datasets of current user
 		axios
-			.get("http://localhost:4000/datasets", {
+			.get("https://grapher-dfs.onrender.com/datasets", {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},

@@ -41,7 +41,7 @@ const Graphs = () => {
 		// Check if user is logged in
 		const token = validateAuthToken()
 
-		axios.get(`http://localhost:4000/datasets/${dataset_id}`, {
+		axios.get(`https://grapher-dfs.onrender.com/datasets/${dataset_id}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
@@ -59,7 +59,7 @@ const Graphs = () => {
 				setTableRows(res.data.fields);
 				setValues(res.data.data);
 
-				axios.get(`http://localhost:4000/datasets/${dataset_id}/graphs`, {
+				axios.get(`https://grapher-dfs.onrender.com/datasets/${dataset_id}/graphs`, {
 					headers: {
 						Authorization: `Bearer ${token}`,
 					}

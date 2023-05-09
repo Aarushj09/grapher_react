@@ -31,7 +31,7 @@ describe('Login component', () => {
     // Wait for API call and success alert
     await waitFor(() => {
       expect(axios.post).toHaveBeenCalledWith(
-        'http://localhost:4000/auth/login',
+        'https://grapher-dfs.onrender.com/auth/login',
         {
           email: 'ayanagrawal007@gmail.,com',
           password: '123456',
@@ -70,7 +70,7 @@ describe('Login component', () => {
     // Wait for API call and error alert
     await waitFor(() => {
       expect(axios.post).toHaveBeenCalledWith(
-        'http://localhost:4000/auth/login',
+        'https://grapher-dfs.onrender.com/auth/login',
         {
           email: 'ayanagrawal007@gmail.com',
           password: '123',

@@ -31,13 +31,13 @@ describe('Graphs', () => {
     render(<Graphs />);
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('http://localhost:4000/datasets/123', {
+      expect(axios.get).toHaveBeenCalledWith('https://grapher-dfs.onrender.com/datasets/123', {
         headers: {
           Authorization: 'Bearer fakeToken',
         },
       });
     });
-    expect(axios.get).toHaveBeenCalledWith('http://localhost:4000/datasets/123/graphs', {
+    expect(axios.get).toHaveBeenCalledWith('https://grapher-dfs.onrender.com/datasets/123/graphs', {
       headers: {
         Authorization: 'Bearer fakeToken',
       },
@@ -56,13 +56,13 @@ describe('Graphs', () => {
     render(<Graphs />);
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('http://localhost:4000/datasets/123', {
+      expect(axios.get).toHaveBeenCalledWith('https://grapher-dfs.onrender.com/datasets/123', {
         headers: {
           Authorization: 'Bearer fakeToken',
         },
       });
     });
-    expect(axios.get).not.toHaveBeenCalledWith('http://localhost:4000/datasets/123/graphs', {
+    expect(axios.get).not.toHaveBeenCalledWith('https://grapher-dfs.onrender.com/datasets/123/graphs', {
       headers: {
         Authorization: 'Bearer fakeToken',
       },
@@ -91,13 +91,13 @@ describe('Graphs', () => {
     render(<Graphs />);
   
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('http://localhost:4000/datasets/123', {
+      expect(axios.get).toHaveBeenCalledWith('https://grapher-dfs.onrender.com/datasets/123', {
         headers: {
           Authorization: 'Bearer fakeToken',
         },
       });
     });
-    expect(axios.get).toHaveBeenCalledWith('http://localhost:4000/datasets/123/graphs', {
+    expect(axios.get).toHaveBeenCalledWith('https://grapher-dfs.onrender.com/datasets/123/graphs', {
       headers: {
         Authorization: 'Bearer fakeToken',
       },

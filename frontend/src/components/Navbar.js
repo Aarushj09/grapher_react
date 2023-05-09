@@ -25,7 +25,7 @@ export default function ButtonAppBar() {
             return;
         }
 
-        axios.get("http://localhost:4000/auth/user", {
+        axios.get("https://grapher-dfs.onrender.com/auth/user", {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

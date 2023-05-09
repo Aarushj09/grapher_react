@@ -21,7 +21,7 @@ describe('AddGraphs', () => {
     render(<AddGraphs />);
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('http://localhost:4000/datasets/dataset_id', {
+      expect(axios.get).toHaveBeenCalledWith('https://grapher-dfs.onrender.com/datasets/dataset_id', {
         headers: {
           Authorization: 'Bearer fakeToken',
         },
@@ -45,7 +45,7 @@ describe('AddGraphs', () => {
     render(<AddGraphs />);
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('http://localhost:4000/datasets/dataset_id', {
+      expect(axios.get).toHaveBeenCalledWith('https://grapher-dfs.onrender.com/datasets/dataset_id', {
         headers: {
           Authorization: 'Bearer fakeToken',
         },
